@@ -4,6 +4,7 @@ import { Label } from "../components/label";
 import { Input } from "../components/input";
 import { useForm } from "react-hook-form";
 import IconEyeOpen from "components/icon/IconEyeOpen";
+import Field from "components/field/Field";
 const SignUpPageStyled = styled.div`
   min-height: 100vh;
   padding: 40px;
@@ -20,12 +21,6 @@ const SignUpPageStyled = styled.div`
   .form {
     max-width: 800px;
     margin: 0 auto;
-  }
-  .field {
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    align-items: flex-start;
   }
 `;
 
@@ -45,7 +40,7 @@ const SignUpPage = () => {
         <img srcSet="/logo.png 2x" alt="monkey-blog" className="logo" />
         <h1 className="heading">Monkey Blogging</h1>
         <form className="form" onSubmit={handleSubmit(handleSignUp)}>
-          <div className="field">
+          <Field>
             <Label htmlFor="fullName" className="label">
               Full Name
             </Label>
@@ -55,7 +50,7 @@ const SignUpPage = () => {
               placeholder="Enter your fullname"
               control={control}
             />
-          </div>
+          </Field>
         </form>
       </div>
     </SignUpPageStyled>
