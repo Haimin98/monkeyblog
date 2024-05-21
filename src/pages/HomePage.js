@@ -1,15 +1,16 @@
+import Header from "components/layout/Header";
 import { signOut } from "firebase/auth";
 import { auth } from "firebasedb/firebase-config";
 import React from "react";
+import styled from "styled-components";
+
+const HomePageStyle = styled.div``;
 
 const HomePage = () => {
-  const handleSignOut = () => {
-    signOut(auth);
-  };
   return (
-    <div>
-      <button onClick={handleSignOut}>Sign Out</button>
-    </div>
+    <HomePageStyle>
+      <Header></Header>
+    </HomePageStyle>
   );
 };
 

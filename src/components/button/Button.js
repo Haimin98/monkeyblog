@@ -15,7 +15,7 @@ const ButtonStyled = styled.button`
   font-weight: 600;
   font-size: 18px;
   border-radius: 8px;
-  width: 100%;
+  /* width: 100%; */
   height: ${(props) => props.height || "66px"};
   display: flex;
   justify-content: center;
@@ -41,11 +41,9 @@ const Button = ({
   const { isLoading } = props;
   const child = !!isLoading ? <LoadingSpinner></LoadingSpinner> : children;
   return (
-    <div>
-      <ButtonStyled type={type} onClick={onClick} {...props}>
-        {child}
-      </ButtonStyled>
-    </div>
+    <ButtonStyled type={type} onClick={onClick} {...props}>
+      {child}
+    </ButtonStyled>
   );
 };
 
@@ -54,6 +52,7 @@ Button.propTypes = {
   children: PropTypes.node,
   onClick: PropTypes.func,
   isLoading: PropTypes.bool,
+  height: PropTypes.string,
 };
 
 export default Button;
