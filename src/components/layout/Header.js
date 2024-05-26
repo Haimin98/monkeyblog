@@ -1,4 +1,6 @@
 import Button from "components/button/Button";
+import { useAuth } from "contexts/auth-context";
+import { auth } from "firebasedb/firebase-config";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -8,6 +10,9 @@ const HeaderStyles = styled.div`
   .header-main {
     display: flex;
     align-items: center;
+  }
+  .header-auth {
+    margin-left: 20px;
   }
   .logo {
     display: block;
@@ -65,7 +70,14 @@ const menuLink = [
     title: "Contact",
   },
 ];
+
+function getLastName(name) {
+  if (!name) return "";
+  return name.split(" ").pop();
+}
 const Header = () => {
+  const { userInfo } = useAuth();
+  console.log(userInfo);
   return (
     <HeaderStyles>
       <div className="container">
@@ -119,15 +131,24 @@ const Header = () => {
               </svg>
             </span>
           </div>
-          <Button
-            // style={{ maxWidth: "200px" }}
-            height="56px"
-            className="header-button"
-            type="button"
-            to="/sign-up"
-          >
-            Sign Up
-          </Button>
+          {!userInfo ? (
+            <Button
+              // style={{ maxWidth: "200px" }}
+              height="56px"
+              className="header-button"
+              type="button"
+              to="/sign-up"
+            >
+              Sign Up
+            </Button>
+          ) : (
+            <div className="header-auth">
+              <strong>Welcome back</strong>
+              <span style={{ marginLeft: 5 }}>
+                {getLastName(userInfo?.displayName)}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </HeaderStyles>

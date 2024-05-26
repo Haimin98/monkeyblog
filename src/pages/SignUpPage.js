@@ -55,6 +55,7 @@ const SignUpPage = () => {
     await addDoc(colRef, {
       fullname: values.fullName,
       email: values.email,
+      password: values.password,
       userId: user.user.uid,
     });
     toast.success("Register successfully!");
@@ -125,7 +126,8 @@ const SignUpPage = () => {
           disabled={isSubmitting}
           isLoading={isSubmitting}
           style={{
-            maxWidth: 350,
+            width: "100%",
+            maxWidth: "400px",
             margin: "0 auto",
           }}
         >

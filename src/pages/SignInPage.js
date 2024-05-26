@@ -95,6 +95,7 @@ const SignInPage = () => {
           isLoading={isSubmitting}
           style={{
             maxWidth: 350,
+            width: "100%",
             margin: "0 auto",
           }}
         >
