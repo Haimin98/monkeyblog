@@ -1,21 +1,19 @@
 import { useAuth } from "contexts/auth-context";
-import React, { useEffect, useState } from "react";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import AuthenticationPage from "./AuthenticationPage";
 import { useForm } from "react-hook-form";
 import Field from "components/field/Field";
 import { Label } from "components/label";
 import { Input } from "components/input";
-import IconEyeClose from "components/icon/IconEyeClose";
-import IconEyeOpen from "components/icon/IconEyeOpen";
 import Button from "components/button/Button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "firebasedb/firebase-config";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 const SignInPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const { userInfo } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
@@ -73,20 +71,7 @@ const SignInPage = () => {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <Input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {!showPassword ? (
-              <IconEyeClose
-                onClick={() => setShowPassword(true)}
-              ></IconEyeClose>
-            ) : (
-              <IconEyeOpen onClick={() => setShowPassword(false)}></IconEyeOpen>
-            )}
-          </Input>
+          <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
 
         <Button

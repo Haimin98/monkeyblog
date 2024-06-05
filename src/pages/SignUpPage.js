@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect } from "react";
 import { Label } from "../components/label";
 import { Input } from "../components/input";
 import { useForm } from "react-hook-form";
-import IconEyeOpen from "components/icon/IconEyeOpen";
 import Field from "components/field/Field";
-import IconEyeClose from "components/icon/IconEyeClose";
 import Button from "components/button/Button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,6 +12,7 @@ import { auth, db } from "firebasedb/firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 
 const schema = yup.object({
   fullName: yup.string().required("Please enter your fullname"),
@@ -61,7 +59,6 @@ const SignUpPage = () => {
     toast.success("Register successfully!");
     // navigate("/");
   };
-  const [showPassword, setShowPassword] = useState(false);
   useEffect(() => {
     document.title = "Register Page";
   }, []);
@@ -105,20 +102,7 @@ const SignUpPage = () => {
           <Label htmlFor="password" className="label">
             Password
           </Label>
-          <Input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {!showPassword ? (
-              <IconEyeClose
-                onClick={() => setShowPassword(true)}
-              ></IconEyeClose>
-            ) : (
-              <IconEyeOpen onClick={() => setShowPassword(false)}></IconEyeOpen>
-            )}
-          </Input>
+          <InputPasswordToggle control={control}></InputPasswordToggle>
         </Field>
 
         <Button
