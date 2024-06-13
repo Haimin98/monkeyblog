@@ -1,64 +1,11 @@
-import Button from "components/button/Button";
+import { Button } from "components/button";
 import { useAuth } from "contexts/auth-context";
-import { auth } from "firebasedb/firebase-config";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-
-const HeaderStyles = styled.div`
-  padding: 30px 0;
-  .header-main {
-    display: flex;
-    align-items: center;
-  }
-  .header-auth {
-    margin-left: 20px;
-  }
-  .logo {
-    display: block;
-    max-width: 50px;
-    margin-right: 20px;
-  }
-  .menu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-left: 40px;
-    list-style: none;
-    font-weight: 500;
-  }
-
-  .search {
-    padding: 15px 25px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    max-width: 320px;
-    margin-left: auto;
-    /* position: relative; */
-  }
-  .search-input {
-    flex: 1;
-    padding-right: 45px;
-    font-size: 16px;
-  }
-  .search-icon {
-    position: absolute;
-    top: 50%;
-    right: 25px;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-  .header-button {
-    margin-left: 20px;
-  }
-`;
-const menuLink = [
+const menuLinks = [
   {
-    url: "/home",
+    url: "/",
     title: "Home",
   },
   {
@@ -71,22 +18,75 @@ const menuLink = [
   },
 ];
 
+const HeaderStyles = styled.header`
+  padding: 20px 0;
+  .header-main {
+    display: flex;
+    align-items: center;
+  }
+  .logo {
+    display: block;
+    max-width: 50px;
+  }
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: 40px;
+    list-style: none;
+    font-weight: 500;
+  }
+  .search {
+    margin-left: auto;
+    padding: 15px 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 20px;
+  }
+  .search-input {
+    flex: 1;
+    padding-right: 45px;
+    font-weight: 500;
+  }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 25px;
+  }
+  @media screen and (max-width: 1023.98px) {
+    .logo {
+      max-width: 30px;
+    }
+    .menu,
+    .search,
+    .header-button,
+    .header-auth {
+      display: none;
+    }
+  }
+`;
 function getLastName(name) {
-  if (!name) return "";
-  return name.split(" ").pop();
+  if (!name) return "User";
+  const length = name.split(" ").length;
+  return name.split(" ")[length - 1];
 }
 const Header = () => {
   const { userInfo } = useAuth();
-  console.log(userInfo);
   return (
     <HeaderStyles>
       <div className="container">
         <div className="header-main">
           <NavLink to="/">
-            <img srcSet="logo.png 2x" alt="monkey-blog" className="logo" />
+            <img srcSet="/logo.png 2x" alt="monkey-blogging" className="logo" />
           </NavLink>
           <ul className="menu">
-            {menuLink.map((item) => (
+            {menuLinks.map((item) => (
               <li className="menu-item" key={item.title}>
                 <NavLink to={item.url} className="menu-link">
                   {item.title}
@@ -98,7 +98,7 @@ const Header = () => {
             <input
               type="text"
               className="search-input"
-              placeholder="Search post...."
+              placeholder="Search posts..."
             />
             <span className="search-icon">
               <svg
@@ -133,20 +133,19 @@ const Header = () => {
           </div>
           {!userInfo ? (
             <Button
-              // style={{ maxWidth: "200px" }}
+              type="button"
               height="56px"
               className="header-button"
-              type="button"
               to="/sign-up"
             >
               Sign Up
             </Button>
           ) : (
             <div className="header-auth">
-              <strong>Welcome back</strong>
-              <span style={{ marginLeft: 5 }}>
+              <span>Welcome back, </span>
+              <strong className="text-primary">
                 {getLastName(userInfo?.displayName)}
-              </span>
+              </strong>
             </div>
           )}
         </div>

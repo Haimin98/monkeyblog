@@ -4,6 +4,10 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "pages/SignInPage";
 import HomePage from "pages/HomePage";
 import NotFoundPage from "pages/NotFoundPage";
+import DashboardLayout from "module/dashboard/DashboardLayout";
+import DashboardPage from "pages/DashboardPage";
+import PostAddNew from "module/post/PostAddNew";
+import PostManage from "module/post/PostManage";
 
 function App() {
   return (
@@ -14,6 +18,20 @@ function App() {
           <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
           <Route path="/sign-in" element={<SignInPage></SignInPage>}></Route>
           <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
+          <Route element={<DashboardLayout></DashboardLayout>}>
+            <Route
+              path="/dashboard"
+              element={<DashboardPage></DashboardPage>}
+            ></Route>
+            <Route
+              path="/manage/post"
+              element={<PostManage></PostManage>}
+            ></Route>
+            <Route
+              path="/manage/add-post"
+              element={<PostAddNew></PostAddNew>}
+            ></Route>
+          </Route>
         </Routes>
       </AuthProvider>
     </div>

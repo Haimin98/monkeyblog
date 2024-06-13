@@ -1,24 +1,22 @@
+import { IconEyeClose, IconEyeOpen } from "components/icon";
 import React, { Fragment, useState } from "react";
 import Input from "./Input";
-import IconEyeClose from "components/icon/IconEyeClose";
-import IconEyeOpen from "components/icon/IconEyeOpen";
 
 const InputPasswordToggle = ({ control }) => {
-  const [showPassword, setShowPassword] = useState(false);
-
+  const [togglePassword, setTogglePassword] = useState(false);
   if (!control) return null;
   return (
     <Fragment>
       <Input
-        type={showPassword ? "text" : "password"}
+        type={togglePassword ? "text" : "password"}
         name="password"
         placeholder="Enter your password"
         control={control}
       >
-        {!showPassword ? (
-          <IconEyeClose onClick={() => setShowPassword(true)}></IconEyeClose>
+        {!togglePassword ? (
+          <IconEyeClose onClick={() => setTogglePassword(true)}></IconEyeClose>
         ) : (
-          <IconEyeOpen onClick={() => setShowPassword(false)}></IconEyeOpen>
+          <IconEyeOpen onClick={() => setTogglePassword(false)}></IconEyeOpen>
         )}
       </Input>
     </Fragment>
